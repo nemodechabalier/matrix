@@ -1,19 +1,28 @@
-#from vector import Vector
+class InvalidShapeError(ValueError):
+	def __init__(self, msg="Matrix: Invalid shape"):
+		super().__init__(msg)
 
+class InvalidValueError(ValueError):
+	def __init__(self, msg="Matrix: Invalid Value"):
+		super().__init__(msg)
+
+class InvalidTypeError(TypeError):
+	def __init__(self, msg="Matrix: Invalid Type"):
+		super().__init__(msg)
 
 class Matrix:
 	def __init__(self, data):
 		if not isinstance(data, list):
-			raise TypeError("Matrix must be a list")
+			raise InvalidTypeError
 		size = len(data[0])
 		if size == 0:
-			raise ValueError("Error")
+			raise InvalidValueError
 		for lst in data:
 			if not isinstance(lst, list) or len(lst) != size:
-				raise ValueError("Matrix must be a list of list and have the same size")
+				raise InvalidValueError
 			for l in lst:
 			    if not isinstance(l, (int, float)):
-			    	raise ValueError("Matrix must be a list of int or float")
+			    	raise InvalidValueError
 		self.data = data
 
 	def is_square(self):
@@ -22,46 +31,55 @@ class Matrix:
 		return False
 
 	def shape(self):
-		return len(self.data[0]) , len(self.data)
+		return  len(self.data), len(self.data[0])
 	
-    def matrix_to_vector(mat):
-        data = []
-        for row in mat.data:
-            for x in row:
-                data.append(x)
-        from vector import Vector
-        return Vector(data)
-
-
+	def matrix_to_vector(self):
+		from vector import Vector
+		data = []
+		for row in self.data:
+			for x in row:
+				data.append(x)
+		return Vector(data)
+		
+	def __str__(self):
+	    return "\n".join(str(row) for row in self.data)
 	
-test = [
-	[1,2],
-	[3,2]
-]
-
-M = Matrix(test)
-print(test)
-
-test = [
-	[1,2],
-	[3,2,1]
-]
-
-M = Matrix(test)
-print(test)
-
-test = [
-	[],
-	[]
-]
-
-M = Matrix(test)
-print(test)
-
-test = [
-	["n",2],
-	[3,2,1]
-]
-
-M = Matrix(test)
-print(test)
+	def __add__(self, other):
+		if not isinstance(other, Matrix):
+			raise TypeError("Matrix: Invalid Type")
+		if self.shape() != other.shape():
+			raise ValueError("Matrix: Invalid Shape")
+		data = []
+		for i in range(len(self.data)):
+			row = []
+			for j in range(len(self.data[0])):
+				row.append(self.data[i][j] + other.data[i][j])
+			data.append(row)
+		return Matrix(data)
+	
+	def __sub__(self, other):
+		if not isinstance(other, Matrix):
+			raise TypeError("Matrix: Invalid Type")
+		if self.shape() != other.shape():
+			raise ValueError("Matrix: Invalid Shape")
+		data = []
+		for i in range(len(self.data)):
+			row = []
+			for j in range(len(self.data[0])):
+				row.append(self.data[i][j] - other.data[i][j])
+			data.append(row)
+		return Matrix(data)
+    
+	def __mul__(self, scalar):
+		if not isinstance(scalar, (int, float)):
+			raise TypeError("Matrix: Invalid Type")
+		data = []
+		for row in self.data:
+			new_row = []
+			for x in row:
+				new_row.append(x * scalar)
+			data.append(new_row)
+		return Matrix(data)
+	
+	def __rmul__(self, scalar):
+		return self.__mul__(scalar)
