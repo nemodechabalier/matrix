@@ -70,4 +70,18 @@ class Vector:
 	def __rmul__(self, scalar):
 		"""Allows scalar * vector as well as vector * scalar"""
 		return self.__mul__(scalar)
+	
+	def dot(self, other):
+		if not isinstance(other, Vector):
+			raise InvalidTypeError
+		if self.size() != other.size():
+			raise InvalidShapeError
+		result = 0
+		for i in range(self.size()):
+			result = result + self.data[i] * other.data[i]
+		return result
+    
+	def __matmul__(self, other):
+		"""Dot product using @ operator"""
+		return self.dot(other)
 		

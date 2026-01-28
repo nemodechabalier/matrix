@@ -43,7 +43,7 @@ class Matrix:
 		
 	def __str__(self):
 	    return "\n".join(str(row) for row in self.data)
-	
+		
 	def __add__(self, other):
 		if not isinstance(other, Matrix):
 			raise TypeError("Matrix: Invalid Type")
