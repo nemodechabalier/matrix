@@ -2,12 +2,12 @@ from vector import Vector
 from matrix import Matrix
 
 class InvalidValueError(ValueError):
-	def __init__(self, msg="Lerp : Invalid Value"):
-		super().__init__(msg)
+    def __init__(self, msg="Lerp : Invalid Value"):
+        super().__init__(msg)
 
 class InvalidTypeError(ValueError):
-	def __init__(self, msg="Lerp : Invalid Type"):
-		super().__init__(msg)
+    def __init__(self, msg="Lerp : Invalid Type"):
+        super().__init__(msg)
 
 def lerp(u , v, t) -> Vector:
     """

@@ -2,12 +2,12 @@ from vector import Vector
 
 
 class InvalidValueError(ValueError):
-	def __init__(self, msg="Linear combination: Invalid Value"):
-		super().__init__(msg)
+    def __init__(self, msg="Linear combination: Invalid Value"):
+        super().__init__(msg)
 
 class InvalidTypeError(ValueError):
-	def __init__(self, msg="Linear combination: Invalid Type"):
-		super().__init__(msg)
+    def __init__(self, msg="Linear combination: Invalid Type"):
+        super().__init__(msg)
 
 def linear_combination(vectors: list[Vector], coefs: list[float, int]) -> Vector:
     """
