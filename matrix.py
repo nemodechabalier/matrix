@@ -279,4 +279,3 @@ class Matrix:
                 rank += 1
                 
         return rank
-            
