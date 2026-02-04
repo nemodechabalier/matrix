@@ -4,7 +4,6 @@ sys.path.append(str(Path(__file__).parent.parent))
 
 from vector import Vector
 
-# Tests pour l'exercice 05 - Cosine
 
 u = Vector([1., 0.])
 v = Vector([1., 0.])
