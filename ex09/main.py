@@ -4,67 +4,65 @@ sys.path.append(str(Path(__file__).parent.parent))
 
 from matrix import Matrix
 
-def main():
-    # Test 1: Matrice 2x3
-    u = Matrix([
-        [1., 2., 3.],
-        [4., 5., 6.],
-    ])
-    print("Original (2x3):")
-    print(u)
-    print(f"Shape: {u.shape()}")
-    print("\nTransposée (3x2):")
-    t = u.transpose()
-    print(t)
-    print(f"Shape: {t.shape()}")
-    # Expected:
-    # [1.0, 4.0]
-    # [2.0, 5.0]
-    # [3.0, 6.0]
+print("=" * 50)
+print("EXERCICE 09 - Transpose (Complexes)")
+print("=" * 50)
 
-    print("\n" + "="*30 + "\n")
+# Tests avec réels
+print("\n--- Tests avec réels ---\n")
 
-    # Test 2: Matrice carrée 3x3
-    u = Matrix([
-        [1., 2., 3.],
-        [4., 5., 6.],
-        [7., 8., 9.],
-    ])
-    print("Original (3x3):")
-    print(u)
-    print("\nTransposée (3x3):")
-    print(u.transpose())
-    # Expected:
-    # [1.0, 4.0, 7.0]
-    # [2.0, 5.0, 8.0]
-    # [3.0, 6.0, 9.0]
+u = Matrix([
+    [1., 2.],
+    [3., 4.],
+])
+print("M =")
+print(u)
+print("\nM^T =")
+print(u.transpose())
+# Attendu: [[1, 3], [2, 4]]
 
-    print("\n" + "="*30 + "\n")
+u = Matrix([
+    [1., 2., 3.],
+    [4., 5., 6.],
+])
+print("\nM (2x3) =")
+print(u)
+print("\nM^T (3x2) =")
+print(u.transpose())
 
-    # Test 3: Vecteur ligne 1x4
-    u = Matrix([
-        [1., 2., 3., 4.],
-    ])
-    print("Original (1x4):")
-    print(u)
-    print(f"Shape: {u.shape()}")
-    print("\nTransposée (4x1):")
-    t = u.transpose()
-    print(t)
-    print(f"Shape: {t.shape()}")
+# Tests avec complexes
+print("\n--- Tests avec complexes ---\n")
 
-    print("\n" + "="*30 + "\n")
+u = Matrix([
+    [1 + 1j, 2 - 1j],
+    [3j, 4],
+])
+print("M =")
+print(u)
+print("\nM^H (transposée conjuguée) =")
+print(u.transpose())
+# Attendu: [[1-1j, -3j], [2+1j, 4]]
 
-    # Test 4: Double transposée = originale
-    u = Matrix([
-        [1., 2.],
-        [3., 4.],
-        [5., 6.],
-    ])
-    print("Test (Aᵀ)ᵀ = A:")
-    print(f"Original: {u.shape()}")
-    print(f"Double transposée: {u.transpose().transpose().shape()}")
-    print(f"Égalité des données: {u.data == u.transpose().transpose().data}")
+u = Matrix([
+    [1j, 2j],
+    [3j, 4j],
+])
+print("\nM =")
+print(u)
+print("\nM^H =")
+print(u.transpose())
+# Attendu: [[-1j, -3j], [-2j, -4j]]
 
-if __name__ == "__main__":
-    main()
+# Propriété importante : (A^H)^H = A
+u = Matrix([
+    [1 + 2j, 3 - 1j],
+    [2 - 3j, 4 + 1j],
+])
+print("\nM =")
+print(u)
+print("\n(M^H)^H = M ?")
+print(u.transpose().transpose())
+
+print("\n" + "=" * 50)
+print("Tests terminés !")
+print("=" * 50)

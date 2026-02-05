@@ -21,17 +21,15 @@ class Matrix:
             if not isinstance(lst, list) or len(lst) != size:
                 raise InvalidValueError
             for l in lst:
-                if not isinstance(l, (int, float)):
+                if not isinstance(l, (int, float, complex)):
                     raise InvalidValueError
         self.data = data
 
-    def is_square(self):
-        if len(self.data[0]) == len(self.data):
-            return True
-        return False
-
     def shape(self):
         return  len(self.data), len(self.data[0])
+    
+    def is_square(self):
+        return self.shape()[0] == self.shape()[1]
     
     def matrix_to_vector(self):
         from vector import Vector
@@ -71,7 +69,7 @@ class Matrix:
         return Matrix(data)
     
     def __mul__(self, scalar):
-        if not isinstance(scalar, (int, float)):
+        if not isinstance(scalar, (int, float, complex)):
             raise TypeError("Matrix: Invalid Type")
         data = []
         for row in self.data:
@@ -134,7 +132,7 @@ class Matrix:
         for y in range(self.shape()[1]):
             line = []
             for x in range(self.shape()[0]):
-                line.append(self.data[x][y])
+                line.append(self.data[x][y].conjugate())
             result.append(line)
         return Matrix(result)
         

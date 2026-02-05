@@ -9,7 +9,7 @@ class InvalidTypeError(ValueError):
     def __init__(self, msg="Linear combination: Invalid Type"):
         super().__init__(msg)
 
-def linear_combination(vectors: list[Vector], coefs: list[float, int]) -> Vector:
+def linear_combination(vectors: list[Vector], coefs: list[float, int, complex]) -> Vector:
     """
     Computes a linear combination of vectors.
     
@@ -24,7 +24,7 @@ def linear_combination(vectors: list[Vector], coefs: list[float, int]) -> Vector
         raise InvalidValueError
     size = vectors[0].size()
     for i in range(len(vectors)):
-        if not isinstance(vectors[i], Vector) or not isinstance(coefs[i], (int, float)):
+        if not isinstance(vectors[i], Vector) or not isinstance(coefs[i], (int, float, complex)):
             raise InvalidTypeError
         if vectors[i].size() != size:
             raise InvalidValueError

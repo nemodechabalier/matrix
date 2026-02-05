@@ -15,7 +15,7 @@ class Vector:
         if not isinstance(data, list):
             raise InvalidTypeError
         for d in data:
-            if not isinstance(d, (int, float)):
+            if not isinstance(d, (int, float, complex)):
                 raise InvalidValueError
         self.data = data
         
@@ -60,7 +60,7 @@ class Vector:
     
     def __mul__(self, scalar):
         """Scaling: multiplies each element of the vector by a scalar"""
-        if not isinstance(scalar, (int, float)):
+        if not isinstance(scalar, (int, float, complex)):
             raise InvalidTypeError()
         data = []
         for x in self.data:
@@ -78,7 +78,7 @@ class Vector:
             raise InvalidShapeError
         result = 0
         for i in range(self.size()):
-            result = result + self.data[i] * other.data[i]
+            result = result + self.data[i] * other.data[i].conjugate()
         return result
     
     def __matmul__(self, other):
@@ -92,7 +92,7 @@ class Vector:
     def norm(self):
         result = 0
         for i in range(self.size()):
-            result = result + pow(self.data[i], 2)
+            result = result + abs(self.data[i]) ** 2
         return pow(result, 0.5)
     
     def norm_inf(self):
