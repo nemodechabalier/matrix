@@ -4,85 +4,80 @@ sys.path.append(str(Path(__file__).parent.parent))
 
 from matrix import Matrix
 
-def main():
-    # Test 1: Matrice identité (déjà en RREF)
-    u = Matrix([
-        [1., 0., 0.],
-        [0., 1., 0.],
-        [0., 0., 1.],
-    ])
-    print("Test 1 - Identité:")
-    print(u.row_echelon())
-    # Expected:
-    # [1.0, 0.0, 0.0]
-    # [0.0, 1.0, 0.0]
-    # [0.0, 0.0, 1.0]
+print("=" * 50)
+print("EXERCICE 10 - Row Echelon Form (Complexes)")
+print("=" * 50)
 
-    print("\n" + "="*40 + "\n")
+# Tests avec réels (exemples du sujet)
+print("\n--- Tests avec réels ---\n")
 
-    # Test 2: Matrice 2x2 simple
-    u = Matrix([
-        [1., 2.],
-        [3., 4.],
-    ])
-    print("Test 2 - Matrice 2x2:")
-    print(u.row_echelon())
-    # Expected:
-    # [1.0, 0.0]
-    # [0.0, 1.0]
+u = Matrix([
+    [1., 0., 0.],
+    [0., 1., 0.],
+    [0., 0., 1.],
+])
+print("I =")
+print(u.row_echelon())
 
-    print("\n" + "="*40 + "\n")
+u = Matrix([
+    [1., 2.],
+    [3., 4.],
+])
+print("\n[[1, 2], [3, 4]] →")
+print(u.row_echelon())
+# Attendu: [[1, 0], [0, 1]]
 
-    # Test 3: Matrice avec lignes dépendantes (rang déficient)
-    u = Matrix([
-        [1., 2.],
-        [2., 4.],
-    ])
-    print("Test 3 - Lignes dépendantes:")
-    print(u.row_echelon())
-    # Expected:
-    # [1.0, 2.0]
-    # [0.0, 0.0]
+u = Matrix([
+    [1., 2.],
+    [2., 4.],
+])
+print("\n[[1, 2], [2, 4]] →")
+print(u.row_echelon())
+# Attendu: [[1, 2], [0, 0]]
 
-    print("\n" + "="*40 + "\n")
+u = Matrix([
+    [8., 5., -2., 4., 28.],
+    [4., 2.5, 20., 4., -4.],
+    [8., 5., 1., 4., 17.],
+])
+print("\nMatrice augmentée →")
+print(u.row_echelon())
 
-    # Test 4: Matrice rectangulaire (système augmenté)
-    u = Matrix([
-        [8., 5., -2., 4., 28.],
-        [4., 2.5, 20., 4., -4.],
-        [8., 5., 1., 4., 17.],
-    ])
-    print("Test 4 - Matrice 3x5:")
-    print(u.row_echelon())
-    # Expected:
-    # [1.0, 0.625, 0.0, 0.0, -12.1666667]
-    # [0.0, 0.0, 1.0, 0.0, -3.6666667]
-    # [0.0, 0.0, 0.0, 1.0, 29.5]
+# Tests avec complexes
+print("\n--- Tests avec complexes ---\n")
 
-    print("\n" + "="*40 + "\n")
+u = Matrix([
+    [1 + 1j, 2],
+    [1 - 1j, 2],
+])
+print("[[1+1j, 2], [1-1j, 2]] →")
+print(u.row_echelon())
 
-    # Test 5: Matrice avec pivot nul (nécessite échange de lignes)
-    u = Matrix([
-        [0., 1.],
-        [1., 0.],
-    ])
-    print("Test 5 - Pivot nul:")
-    print(u.row_echelon())
-    # Expected:
-    # [1.0, 0.0]
-    # [0.0, 1.0]
+u = Matrix([
+    [1j, 1],
+    [1, 1j],
+])
+print("\n[[1j, 1], [1, 1j]] →")
+print(u.row_echelon())
+# det = j*j - 1 = -1 - 1 = -2 ≠ 0, donc inversible
 
-    print("\n" + "="*40 + "\n")
+u = Matrix([
+    [1 + 1j, 0, 0],
+    [0, 2 - 1j, 0],
+    [0, 0, 3j],
+])
+print("\nMatrice diagonale complexe →")
+print(u.row_echelon())
+# Attendu: I (identité)
 
-    # Test 6: Matrice 3x3
-    u = Matrix([
-        [1., 2., 3.],
-        [4., 5., 6.],
-        [7., 8., 9.],
-    ])
-    print("Test 6 - Matrice 3x3 (rang 2):")
-    print(u.row_echelon())
-    # Expected: rang 2, dernière ligne nulle
+u = Matrix([
+    [1, 1j, 2],
+    [1j, -1, 2j],
+    [2, 2j, 4],
+])
+print("\nMatrice singulière complexe →")
+print(u.row_echelon())
 
-if __name__ == "__main__":
-    main()
+print("\n" + "=" * 50)
+print("Tests terminés !")
+print("=" * 50)
