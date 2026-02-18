@@ -20,6 +20,14 @@ print("I =")
 print(u.row_echelon())
 
 u = Matrix([
+    [0., 2., 1.],
+    [3., 6., 1.],
+    [0., 4., 2.],
+])
+print(f"I =\n{u}\nforme =\n")
+print(u.row_echelon())
+
+u = Matrix([
     [1., 2.],
     [3., 4.],
 ])

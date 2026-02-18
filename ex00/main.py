@@ -25,6 +25,7 @@ print("u * 2:")
 print(u * 2)
 # [4.0]
 # [6.0]
+print(f"u = {u}  u reshape = {u.vector_to_matrix(2,1)}")
 
 # Test Matrix
 print("\n=== Matrix Tests ===")
@@ -47,6 +48,7 @@ print("u * 2:")
 print(u * 2)
 # [2.0, 4.0]
 # [6.0, 8.0]
+print(f"u = \n{u}\nu reshape =\n{u.matrix_to_vector()}")
 
 
 

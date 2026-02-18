@@ -138,51 +138,37 @@ class Matrix:
         
 
     def row_echelon(self):
-        # Copie des données pour ne pas modifier l'original
         result = [row[:] for row in self.data]
         rows, cols = self.shape()
         
-        pivot_row = 0  # Ligne actuelle du pivot
+        pivot_row = 0
         
-        # Parcourir chaque colonne
         for col in range(cols):
-            # Si on a traité toutes les lignes, on arrête
             if pivot_row >= rows:
                 break
-            
-            # ========== ÉTAPE 1 : Trouver un pivot non-nul ==========
-            # Chercher une ligne avec un élément non-nul dans cette colonne
+
             max_row = pivot_row
             for row in range(pivot_row, rows):
-                # Prendre la valeur absolue la plus grande (plus stable)
                 if abs(result[row][col]) > abs(result[max_row][col]):
                     max_row = row
             
-            # Si le pivot est ~0, passer à la colonne suivante
             if abs(result[max_row][col]) < 1e-10:
                 continue
-            
-            # ========== ÉTAPE 2 : Échanger les lignes ==========
-            # Mettre la ligne avec le meilleur pivot en position
+
             result[pivot_row], result[max_row] = result[max_row], result[pivot_row]
-            
-            # ========== ÉTAPE 3 : Normaliser le pivot à 1 ==========
-            # Diviser toute la ligne par le pivot
+
             pivot_val = result[pivot_row][col]
             for j in range(cols):
                 result[pivot_row][j] /= pivot_val
-            
-            # ========== ÉTAPE 4 : Éliminer les autres éléments ==========
-            # Mettre des 0 dans toute la colonne (sauf le pivot)
+
             for row in range(rows):
                 if row != pivot_row:
                     factor = result[row][col]
                     for j in range(cols):
                         result[row][j] -= factor * result[pivot_row][j]
-            
-            # Passer à la ligne suivante pour le prochain pivot
+
             pivot_row += 1
-        
+
         return Matrix(result)
 
 
@@ -196,7 +182,7 @@ class Matrix:
             return self.data[0][0]
         if n == 2:
             return self.data[0][0] * self.data[1][1] - self.data[0][1] * self.data[1][0]
-        
+
         if n == 3:
             a = self.data
             return (a[0][0] * a[1][1] * a[2][2] +
@@ -205,7 +191,7 @@ class Matrix:
                     a[0][2] * a[1][1] * a[2][0] -
                     a[0][1] * a[1][0] * a[2][2] -
                     a[0][0] * a[1][2] * a[2][1])
-        
+
         if n == 4:
             det = 0
             for j in range(4):
@@ -216,10 +202,10 @@ class Matrix:
                         if col != j:
                             minor_row.append(self.data[row][col])
                     minor.append(minor_row)
-                
+
                 sign = 1 if j % 2 == 0 else -1
                 det += sign * self.data[0][j] * Matrix(minor).determinant()
-            
+
             return det
 
 

@@ -20,7 +20,7 @@ def lerp(u , v, t) -> Vector:
     Returns:
         a1*v1 + a2*v2 + ... + ak*vk
     """
-    if not isinstance(t, (float, int, complex)):
+    if not isinstance(t, (float, int)):
         raise InvalidTypeError
     if  t > 1 or t < 0:
         raise InvalidTypeError
